@@ -33,9 +33,14 @@ class Utility:
                 
 
 
-    def printing(dict_data:dict) -> str :
+    def printing(data:list) -> str :
 
+        headers = list(data[0].keys())
+        print(" , ".join(headers))
 
+        for row in headers:
+            print(" , ".join(str(row.get(h, "")) for h in headers))   
+                        
             
 
        

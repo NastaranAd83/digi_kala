@@ -123,59 +123,77 @@ while(True):
             if choice1 in ("1,a,A"):
                 while(True):
 
-                    system("cls")
-                    errors = []
-                    username = input("username :")
+                    print("1.add products")
+                    print("2.list request")
+                    print("3.exit\n")
 
-                    if username=="admin":
+
+                    choice4 = input("your choice : ")
+
+                    if choice4 in ("1","a","A"):
+                        pass
+
+
+                    if choice4 in ("2","L","l"):
+
+                        while(True):
+
+                            system("cls")
+                            errors = []
+                            username = input("username :")
+
+                            if username=="admin":
+                                break
+                            else:
+                                print("invalid username for admin")
+                                sleep(2)
+
+                        while(True):
+
+                            system("cls")
+                            errors = []
+                            password = input("password :")
+
+                            if password == "140724N/a":
+                                break
+
+                            else:
+                                print("invalid password for admin")
+                                sleep(2)
+
+
+                        data_request = FilaManagering.load_data(r"file\request_login.json")
+
+                        data_request = Utility.unique_request("username",data_request)
+
+                        for item in data_request :
+                            
+                            print (f"this user {item['name']}, {item['family']} wants to enter",end='\n')
+
+                            answer = input("do you want to accept this user (y - ect) ?")
+
+                            if answer in ("y", "Y" , "yes"):
+
+
+                                    data_user = FilaManagering.load_data(r"file\user_pass.json")
+                                    if isinstance(data_user,list):
+                                            data_user.append(item)
+                
+                                    else :
+                                            data_user = [data_user]
+                                            data_user.append(item)
+
+                                    FilaManagering.save_data(data_user,r"file\user_pass.json") 
+
+
+
+                            data_request = [record for record in data_request if record["username"] !=  item['username']] 
+                            FilaManagering.save_data(data_request,r"file\request_login.json")  
+
+                        print("Done !")
+
+                    if choice4 in ("3","e","E"):
                         break
-                    else:
-                        print("invalid username for admin")
-                        sleep(2)
-
-                while(True):
-
-                    system("cls")
-                    errors = []
-                    password = input("password :")
-
-                    if password == "140724N/a":
-                        break
-
-                    else:
-                        print("invalid password for admin")
-                        sleep(2)
-
-
-                data_request = FilaManagering.load_data(r"file\request_login.json")
-
-                data_request = Utility.unique_request("username",data_request)
-
-                for item in data_request :
-                    
-                    print (f"this user {item['name']}, {item['family']} wants to enter",end='\n')
-
-                    answer = input("do you want to accept this user (y - ect) ?")
-
-                    if answer in ("y", "Y" , "yes"):
-
-
-                            data_user = FilaManagering.load_data(r"file\user_pass.json")
-                            if isinstance(data_user,list):
-                                    data_user.append(item)
-        
-                            else :
-                                    data_user = [data_user]
-                                    data_user.append(item)
-
-                            FilaManagering.save_data(data_user,r"file\user_pass.json") 
-
-
-
-                    data_request = [record for record in data_request if record["username"] !=  item['username']] 
-                    FilaManagering.save_data(data_request,r"file\request_login.json")  
-
-                print("Done !")
 
 
             if choice1 in ("2","u","U"):
@@ -215,10 +233,6 @@ while(True):
                     else:
                         print("invalid password for this username")
 
-                    
-
-
-                
 
                 while(True):
 
@@ -226,14 +240,29 @@ while(True):
                     print(welcome.center(50, '-'),end="\n")
 
                     print("1.personal information")
-                    print("2.shop")
+                    print("2.shopping")
                     print("3.factors")
-                    print("4.exit")
+                    print("4.shopping cart")
+                    print("5.exit")
 
                     choice3 = input("your choice :")
 
                     if choice3 in ("1","P","p"):
+
+                        print(Utility.printing(current_user), end= "\n")
+
+
+                    if choice3 in ("2","s","S"):
+
                         
+                        pass
+
+                        
+
+
+
+
+
 
 
 
