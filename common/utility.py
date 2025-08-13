@@ -15,7 +15,7 @@ class Utility:
         if target_data:
             errors.append(f"{key} exists!!")
 
-        return errors
+        return errors , target_data
 
 
     def unique_request(key:str, data : list )-> None|str:
@@ -32,6 +32,11 @@ class Utility:
         return data_request
                 
 
+
+    def printing(dict_data:dict) -> str :
+
+
+            
 
        
 

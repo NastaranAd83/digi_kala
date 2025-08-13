@@ -72,7 +72,7 @@ while(True):
                     errors = []
                     username = input("username :")
 
-                    errors = Utility.sarching("username",username)
+                    errors , user = Utility.sarching("username",username)
 
                     if not errors:
                         break
@@ -179,13 +179,16 @@ while(True):
 
 
             if choice1 in ("2","u","U"):
+
+                current_user = []
+
                 while(True):
 
                     system("cls")
                     valid = []
                     username = input("username :")
 
-                    valid = Utility.sarching("username",username)
+                    valid , current_user  = Utility.sarching("username",username)
 
                     if valid:
                         break
@@ -203,15 +206,19 @@ while(True):
                     valid = []
                     password = input("password :")
 
-                    valid = Utility.sarching("username",username)
+                    valid , current_user = Utility.sarching("username",username)
 
                     if valid["password"] == password:
+                        
                         break
 
                     else:
                         print("invalid password for this username")
 
+                    
 
+
+                
 
                 while(True):
 
@@ -223,8 +230,17 @@ while(True):
                     print("3.factors")
                     print("4.exit")
 
+                    choice3 = input("your choice :")
 
-                    
+                    if choice3 in ("1","P","p"):
+                        
+
+
+
+
+                            
+
+
 
 
                     
