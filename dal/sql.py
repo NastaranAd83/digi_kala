@@ -27,17 +27,25 @@ class DatabaseManager:
         for row in self.cursor.fetchall():
             print(row)
 
-    def update_record(self, table_name, set_clause, condition, values):
-        sql = f"UPDATE {table_name} SET {set_clause} WHERE {condition}"
-        self.cursor.execute(sql, values)
-        self.conn.commit()
-        print("✅ رکورد ویرایش شد.")
+    def update_record(self, list_product):
 
-    def delete_record(self, table_name, condition, values):
-        sql = f"DELETE FROM {table_name} WHERE {condition}"
-        self.cursor.execute(sql, values)
-        self.conn.commit()
-        print("✅ رکورد حذف شد.")
+        tables = ["laptop", "cellphone"]
+        ids = list_product
+        for table in tables:
+            placeholders = ", ".join(["%s"] * len(ids))
+            sql = f"UPDATE {table} SET stock = stock - 1 WHERE id IN ({placeholders})"
+            self.cursor.execute(sql, ids)
+            self.conn.commit()
+            # print("✅ رکورد ویرایش شد.")
+
+    def delete_record(self):
+        tables = ["laptop", "cellphone"]
+       
+        for table in tables :
+            sql = f"DELETE FROM {table} WHERE stock = 0"
+            self.cursor.execute(sql)
+            self.conn.commit()
+        # print("✅ رکورد حذف شد.")
 
     def close(self):
         self.cursor.close()
@@ -58,6 +66,14 @@ class DatabaseManager:
                 num = row[2] + num
         return num
 
+    def add_factors(self , table_name , data_dict):
+        
+        columns = ', '.join(data_dict.keys())
+        placeholders = ', '.join(['%s'] * len(data_dict))
+        sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
+        self.cursor.execute(sql, tuple(data_dict.values()))
+        self.conn.commit()
+        
    
 
     

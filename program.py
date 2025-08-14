@@ -302,7 +302,16 @@ while(True):
                             else :
                                 balance = balance - sum_ 
                                 current_user[0]["account_balance"] = balance
+                                db.update_record(products)
+                                db.delete_record()
                                 
+                                products = []
+                                print("successful shop ")
+
+                        
+
+
+
 
 
                     if choice3 in ("4","F","f"):

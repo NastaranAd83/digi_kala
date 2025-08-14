@@ -248,6 +248,14 @@ class DatabaseManager:
                 num = row[2] + num
 
         return num 
+
+    def add_factors(self , table_name , data_dict):
+        
+        columns = ', '.join(data_dict.keys())
+        placeholders = ', '.join(['%s'] * len(data_dict))
+        sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
+        self.cursor.execute(sql, tuple(data_dict.values()))
+        self.conn.commit()
 # f = []
 # db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 # db.read_records("cellphone")
@@ -259,6 +267,9 @@ class DatabaseManager:
 
 db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 db.read_records("cellphone")
+data =  {"username":"nstrn","name":"nono","price" :0}
+db.add_factors("factors",data)
+
 # db.read_records("laptop")
 
 
