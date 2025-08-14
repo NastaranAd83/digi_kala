@@ -4,8 +4,8 @@ import re
 
 class UserPass(Person):
 
-    def __init__(self, name :str , family:str , phone:str , username:str  , password:str ) -> None:
-        super().__init__(name, family, phone)
+    def __init__(self, name :str , family:str , phone:str , username:str  , password:str ,account_balance:float = 0) -> None:
+        super().__init__(name, family, phone , account_balance)
         self.username = username
         self.password = password
 

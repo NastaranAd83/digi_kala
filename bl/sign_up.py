@@ -6,13 +6,13 @@ from bl.person import Person
 
 class SignUp(UserPass):
 
-    def __init__(self, name, family, phone, username, password):
-            super().__init__(name, family, phone, username, password)
+    def __init__(self, name, family, phone, username, password , account_balance):
+            super().__init__(name, family, phone, username, password,account_balance)
     
     def request_for_admin(self):
 
         
-        list_request =  {"name": self.name, "family": self.family,"phone":self.phone,"username":self.username,"password":self.password}
+        list_request =  {"name": self.name, "family": self.family,"phone":self.phone,"username":self.username,"password":self.password,"account_balance":self.balance}
 
         data_request = FilaManagering.load_data(r"file\request_login.json")
         if isinstance(data_request,list):

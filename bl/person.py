@@ -2,11 +2,12 @@ import re
 
 
 class Person:
-    def __init__(self, name , family , phone) -> None:
+    def __init__(self, name , family , phone, account_balance=0) -> None:
 
-        self.name = name 
-        self.family = family
-        self.phone = phone 
+        self.__name = name 
+        self.__family = family
+        self.__phone = phone 
+        self.__account_balane = account_balance
 
 
     @property
@@ -45,6 +46,16 @@ class Person:
         
             self.__phone = phone 
             return self.__phone
+
+    @property
+    def balance(self):
+        return self.__account_balane
+
+    @balance.setter
+    def balance(self , account_balane ):
+        
+            self.__account_balane = account_balane 
+            return self.__account_balane
 
 
     # def get_error_lists(self):

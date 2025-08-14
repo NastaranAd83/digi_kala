@@ -43,10 +43,25 @@ class DatabaseManager:
         self.cursor.close()
         self.conn.close()
 
-    def return_id(self,table_name):
-        self.cursor.execute(f"SELECT id FROM {table_name}")
-        for row in self.cursor.fetchall():
-            print(row)
+    def return_id_name(self,list_product:list):
+
+        tables = ["laptop", "cellphone"]
+        ids = list_product
+
+        for table in tables:
+            placeholders = ", ".join(["%s"] * len(ids))
+            sql = f"SELECT id, name, price FROM `{table}` WHERE id IN ({placeholders})"
+            self.cursor.execute(sql, ids)
+            rows = self.cursor.fetchall()
+            for row in rows:
+                print(f"{table}: id = {row[0]}, name = {row[1]}, price = {row[2]}")
+                num = row[2] + num
+        return num
+
+   
+
+    
+
 
 
 

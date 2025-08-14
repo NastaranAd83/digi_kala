@@ -193,6 +193,7 @@ while(True):
             if choice1 in ("2","u","U"):
 
                 current_user = []
+                products = []
 
                 while(True):
 
@@ -229,15 +230,19 @@ while(True):
 
 
                 while(True):
+                    db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 
                     welcome = " Welcome "
                     print(welcome.center(50, '-'),end="\n")
 
+
+
                     print("1.personal information")
                     print("2.shopping")
-                    print("3.factors")
-                    print("4.shopping cart")
-                    print("5.exit")
+                    print("3.shopping cart")
+                    print("4.factors")
+                    print("5.increase account balance")
+                    print("6.exit")
 
                     choice3 = input("your choice :")
 
@@ -250,7 +255,7 @@ while(True):
 
                         while(True):
 
-                            db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
+                           
                             db.read_records("cellphone")
                             db.read_records("laptop")
 
@@ -258,7 +263,99 @@ while(True):
                             print ("\n which one do you want ?")
                             print ("please enter the id of the ")
 
-                            want_to_shop = input()
+                            while(True):
+
+                                id_ = input("id : ")
+
+                                try :
+                                    id_ = int (id_)
+
+                                except:
+                                    print("invalid value for id ")
+                                    sleep(2)
+                                    system("cls")
+
+
+                                else :
+                                    products.append(id_)
+                                    break
+                            
+                            done = input("are you done(y-etc)?")
+
+                            if done in ("y","Y","yes"):
+                                break
+
+                    if choice3 in ("3","c","C"):
+
+                        sum_= db.return_id_name(products)
+
+                        done = input("are you done(yes-etc) ?")
+
+                        if done in ("y","Y","yes"):
+                            balance = current_user[0].get("account_balance")
+                            if balance - sum_ < 0 :
+                                print("unsuccessful shop !!")
+                                print(f"you need to increase your balance , atleast :{abs(balance - sum_)}")
+                                print(f"your current balance -> {balance}")
+                                sleep(2.5)
+
+                            else :
+                                balance = balance - sum_ 
+                                current_user[0]["account_balance"] = balance
+                                
+
+
+                    if choice3 in ("4","F","f"):
+                        pass
+
+
+                    if choice3 in ("5","i","I") :
+
+                        while(True):
+
+                            amount = input("how much do you want to increase your balance ?")
+
+                            try:
+                                amount = float(amount)
+
+                            except:
+
+                                print("invalid amount")
+
+                            else:
+                                balance = current_user[0].get("account_balance")
+                                current_user[0]["account_balance"]= current_user[0].get("account_balance") + amount
+                                print("your current balance : " , current_user[0].get("account_balance"))
+
+                                sleep(2)
+                                break
+
+
+
+
+                        
+
+                    
+
+
+
+                        
+
+
+                            
+
+
+
+
+                            
+
+
+                                
+
+
+
+
+                            
                         
 
 

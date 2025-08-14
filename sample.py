@@ -90,7 +90,7 @@
 # # # # #     }
 
 # # # # # }
-# # # data =[ {"name" : "nstrn" , "family": "adib"} , {"name" : " nrn" , "family": "op"},{"name" : " mn" , "family": "iu"}]
+data =[ {"name" : "nstrn" , "family": "adib"} , {"name" : " nrn" , "family": "op"},{"name" : " mn" , "family": "iu"}]
 
 # # # # # def mono(): 
 # # # # #         errors = []
@@ -216,7 +216,8 @@ class DatabaseManager:
 
 
     def read_records(self, table_name):
-        self.cursor.execute(f"SELECT * FROM {table_name}")
+       
+        self.cursor.execute(f"SELECT * FROM {table_name} where stock!=0")
         for row in self.cursor.fetchall():
             print(row)
 
@@ -232,8 +233,57 @@ class DatabaseManager:
         self.conn.commit()
         print("✅ رکورد حذف شد.")
 
-f = []
+    def return_id_name(self,list_product:list):
+        tables = ["laptop", "cellphone"]
+        ids = list_product
+        num = 0
+        for table in tables:
+            
+            placeholders = ", ".join(["%s"] * len(ids))
+            sql = f"SELECT id, name , price FROM `{table}` WHERE id IN ({placeholders})"
+            self.cursor.execute(sql, ids)
+            rows = self.cursor.fetchall()
+            for row in rows:
+                print(f"{table}: id={row[0]}, name={row[1]}, price = {row[2]}")
+                num = row[2] + num
+
+        return num 
+# f = []
+# db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
+# db.read_records("cellphone")
+# db.read_records("laptop")
+# f = [db.read_records("cellphone")]
+
+
+
+
 db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 db.read_records("cellphone")
-db.read_records("laptop")
-f = [db.read_records("cellphone")]
+# db.read_records("laptop")
+
+
+# num =db.return_id_name([1,2,3])
+# print (num)
+
+
+# while(True):
+
+#         print ("\n which one do you want ?")
+#         print ("please enter the id of the ")
+
+#         id_ = input("id : ")
+
+#         try :
+#             id_ = int (id_)
+
+#         except:
+
+#             db1= DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
+#             print("invalid value for id ")
+            
+
+
+#         else:
+#             break
+
+
