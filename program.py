@@ -6,7 +6,7 @@ from bl.person import Person
 from dal.textmanager import FilaManagering
 from common.utility import Utility
 from bl.user_pass import UserPass
-
+from dal.sql import DatabaseManager
 while(True):
 
     print("MAIN MENU\n")
@@ -18,6 +18,7 @@ while(True):
     choice = input("\n your choice : ")
 
     if choice in ("1","up"):
+
                 
                 while(True):
 
@@ -122,19 +123,12 @@ while(True):
 
             if choice1 in ("1,a,A"):
                 while(True):
-
-                    print("1.add products")
-                    print("2.list request")
-                    print("3.exit\n")
+                    print("1.list request")
+                    print("2.exit\n")
 
 
                     choice4 = input("your choice : ")
-
-                    if choice4 in ("1","a","A"):
-                        pass
-
-
-                    if choice4 in ("2","L","l"):
+                    if choice4 in ("1","L","l"):
 
                         while(True):
 
@@ -192,7 +186,7 @@ while(True):
 
                         print("Done !")
 
-                    if choice4 in ("3","e","E"):
+                    if choice4 in ("2","e","E"):
                         break
 
 
@@ -254,8 +248,22 @@ while(True):
 
                     if choice3 in ("2","s","S"):
 
+                        while(True):
+
+                            db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
+                            db.read_records("cellphone")
+                            db.read_records("laptop")
+
+
+                            print ("\n which one do you want ?")
+                            print ("please enter the id of the ")
+
+                            want_to_shop = input()
                         
-                        pass
+
+
+
+                        
 
                         
 
@@ -267,9 +275,7 @@ while(True):
 
 
 
-                            
-
-
+            
 
 
                     

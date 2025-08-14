@@ -14,7 +14,7 @@ class cellphone(product):
         return self.__color
 
     @color.setter
-    def cpu(self , color ) -> list:
+    def color(self , color ) -> list:
         
         self.__color = color 
         return self.__color

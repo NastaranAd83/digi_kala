@@ -1,7 +1,7 @@
 
 
 
-import mysql.connector
+
 import mysql.connector
 
 
@@ -16,14 +16,11 @@ class DatabaseManager:
         )
         self.cursor = self.conn.cursor()
 
-   
-    def insert_record(self, table_name, columns, values):
-        
-        placeholders = ", ".join(["%s"] * len(values))
-        sql = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({placeholders})"
-        self.cursor.execute(sql, values)
-        self.conn.commit()
-        print("✅ رکورد اضافه شد.")
+
+    def insert_row(self ,table_name, values : list):
+    
+        pass
+
 
     def read_records(self, table_name):
         self.cursor.execute(f"SELECT * FROM {table_name}")
@@ -45,6 +42,12 @@ class DatabaseManager:
     def close(self):
         self.cursor.close()
         self.conn.close()
+
+    def return_id(self,table_name):
+        self.cursor.execute(f"SELECT id FROM {table_name}")
+        for row in self.cursor.fetchall():
+            print(row)
+
 
 
 
