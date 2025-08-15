@@ -1,4 +1,6 @@
  
+from os import system
+from time import sleep
 from dal.textmanager import FilaManagering
 
 
@@ -45,7 +47,38 @@ class Utility:
         print("   ,   ".join(headers))
         print("--"*48)
         print("   ,   ".join(str(dict_data.get(h, "")) for h in headers)) 
-              
+
+
+    def get_valid_input(prompt, validators):
+        while True:
+
+            system("cls")
+            value = input(prompt)
+            errors = []
+
+            for validator in validators:
+                result = validator(value)
+    
+                if isinstance(result, list):
+                    errors.extend(result)
+                
+                elif isinstance(result, tuple):
+                    err, _ = result
+                    if err:  
+                        errors.append(err)
+
+                elif isinstance(result, str):
+                    errors.append(result)
+
+            if not errors:
+                return value
+
+            for err in errors:
+                print(err)
+            sleep(2)
+            
+
+
                         
             
 

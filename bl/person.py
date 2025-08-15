@@ -69,7 +69,7 @@ class Person:
             if not value:
                 errors.append("empty value")
 
-            if not pattern:
+            elif not pattern:
                 if not value.isalpha():
                     errors.append("invalid character")
 

@@ -7,6 +7,7 @@ from dal.textmanager import FilaManagering
 from common.utility import Utility
 from bl.user_pass import UserPass
 from dal.sql import DatabaseManager
+from common.utility import Utility
 while(True):
 
     print("MAIN MENU\n")
@@ -20,84 +21,103 @@ while(True):
     if choice in ("1","up"):
 
                 
-                while(True):
+                Utility.get_valid_input("name : ",[
+                lambda v :Person.validation(v)])
+                
 
-                    system("cls")
-                    errors = []
-                    name = input("name :")
+                Utility.get_valid_input("family : ",[
+                lambda v :Person.validation(v)])
+                
 
-                    errors = Person.validation(name)
+                Utility.get_valid_input("phone : ",[
+                lambda v : Person.validation(v, True),
+                lambda v : Utility.sarching("phone",v)])
 
-                    if not errors:
-                        break
-                    else:
-                        for error in errors:
-                            print(error)
-                        sleep(2)
+                Utility.get_valid_input("username : ",[
+                lambda v : Utility.sarching("username",v)
+                ])
+                Utility.get_valid_input("password : ",[
+                lambda v : UserPass.check_validation(v) ])
+                 
 
-                while(True):
+                # while(True):
 
-                    system("cls")
-                    errors = []
-                    family = input("family :")
+                #     system("cls")
+                #     errors = []
+                #     name = input("name :")
 
-                    errors = Person.validation(family)
+                #     errors = Person.validation(name)
 
-                    if not errors:
-                        break
-                    else:
-                        for error in errors:
-                            print(error)
-                        sleep(2)
+                #     if not errors:
+                #         break
+                #     else:
+                #         for error in errors:
+                #             print(error)
+                #         sleep(2)
+
+                # while(True):
+
+                #     system("cls")
+                #     errors = []
+                #     family = input("family :")
+
+                #     errors = Person.validation(family)
+
+                #     if not errors:
+                #         break
+                #     else:
+                #         for error in errors:
+                #             print(error)
+                #         sleep(2)
 
 
-                while(True):
+                # while(True):
 
-                    system("cls")
-                    errors = []
-                    phone = input("Phone :")
+                #     system("cls")
+                #     errors = []
+                #     phone = input("Phone :")
 
-                    errors = Person.validation(phone,True)
-                    error , target = Utility.sarching("phone",phone)
-                    if  target:
-                            errors.append(error)
+                #     errors = Person.validation(phone,True)
+                #     error , target = Utility.sarching("phone",phone)
+                #     if  target:
+                #             errors.append(error)
 
-                    if not errors:
-                        break
-                    else:
-                        for error in errors:
-                                print(error)
-                        sleep(2)
+                #     if not errors:
+                #         break
+                #     else:
+                #         for error in errors:
+                #                 print(error)
+                #         sleep(2)
 
-                while(True):
+                # while(True):
 
-                    system("cls")
-                    errors = []
-                    username = input("username :")
+                #     system("cls")
+                #     errors = []
+                #     username = input("username :")
 
-                    errors , user = Utility.sarching("username",username)
+                #     errors , user = Utility.sarching("username",username)
 
-                    if not errors:
-                        break
-                    else:
-                        for error in errors :
-                            print(error)
-                        sleep(2)
+                #     if not errors:
+                #         break
+                #     else:
+                #         for error in errors :
+                #             print(error)
+                #         sleep(2)
 
-                while(True):
+                # while(True):
 
-                    system("cls")
-                    errors = []
-                    password = input("password :")
+                #     system("cls")
+                #     errors = []
+                #     password = input("password :")
 
-                    errors = UserPass.check_validation(password)
+                #     errors = UserPass.check_validation(password)
 
-                    if not errors:
-                        break
-                    else:
-                        for error in errors:
-                            print(error)
-                        sleep(2)
+                #     if not errors:
+                #         break
+                #     else:
+                #         for error in errors:
+                #             print(error)
+                #         sleep(2)
 
                     
                 # data = {
@@ -273,22 +293,20 @@ while(True):
 
                             except:
                                 print("invalid value for id ")
-                                
+
                                 sleep(2)
                                
-                                    
-                                    
                             else :
                                 products.append(id_)
+                                done = input("are you done(y-etc)?")
+                                if done in ("y","Y","yes"):
+                                    break
 
                             finally:
                                 system("cls")
 
                             
-                            done = input("are you done(y-etc)?")
-
-                            if done in ("y","Y","yes"):
-                                break
+                            
 
                     if choice3 in ("3","c","C"):
 
@@ -353,72 +371,8 @@ while(True):
                         break
 
 
-
-                        
-
-                    
-
-
-
-                        
-
-
-                            
-
-
-
-
-                            
-
-
-                                
-
-
-
-
-                            
-                        
-
-
-
-                        
-
-                        
-
-
-
-
-
-
-
-
-
-            
-
-
-                    
-                    
-                
-
-
-                
-
-                
-
-
-
             if choice1 in ("3","e","E"):
                 break
-
-
-
-                        
-
-
-                
-
-
-                    
 
     if choice in ("3","e"):
         break
