@@ -6,7 +6,7 @@ from bl.person import Person
 
 class SignUp(UserPass):
 
-    def __init__(self, name, family, phone, username, password , account_balance):
+    def __init__(self, name, family, phone, username, password , account_balance=0):
             super().__init__(name, family, phone, username, password,account_balance)
     
     def request_for_admin(self):

@@ -249,13 +249,15 @@ class DatabaseManager:
 
         return num 
 
-    def add_factors(self , table_name , data_dict):
+    def add_factors(self , table_name , data_list):
         
-        columns = ', '.join(data_dict.keys())
-        placeholders = ', '.join(['%s'] * len(data_dict))
-        sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
-        self.cursor.execute(sql, tuple(data_dict.values()))
-        self.conn.commit()
+        columns = ', '.join(data_list[0].keys())
+
+        for item in data_list:
+            placeholders = ', '.join(['%s'] * len(item))
+            sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
+            self.cursor.execute(sql, tuple(item.values()))
+            self.conn.commit()
 # f = []
 # db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 # db.read_records("cellphone")
@@ -267,8 +269,20 @@ class DatabaseManager:
 
 db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 db.read_records("cellphone")
-data =  {"username":"nstrn","name":"nono","price" :0}
+data = [ {"name":"nstrn","price" :0},{"name1":"nono","price" :12},{"name":"nono2","price" :120}]
+
+target_data = next(( item for item in data if item["name"] == "nstrn"), None)
+
+# print(target_data)
+
+headers = list(target_data.keys())
+print("   ,   ".join(headers))
+print("--"*47)
+print("   ,   ".join(str(target_data.get(h, "")) for h in headers)) 
+        
+
 db.add_factors("factors",data)
+# db.add_factors("factors",data)
 
 # db.read_records("laptop")
 

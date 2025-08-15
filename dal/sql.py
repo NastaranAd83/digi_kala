@@ -22,10 +22,18 @@ class DatabaseManager:
         pass
 
 
-    def read_records(self, table_name):
-        self.cursor.execute(f"SELECT * FROM {table_name}")
-        for row in self.cursor.fetchall():
-            print(row)
+    def read_records(self, table_name,username:str=None):
+        # SELECT * FROM factors where username = "io"
+        if table_name == "factors":
+            sql = "SELECT * FROM {} WHERE username = %s".format(table_name)
+            self.cursor.execute(sql,(username,))
+            for row in self.cursor.fetchall():
+                print(row)
+
+        else:
+            self.cursor.execute(f"SELECT * FROM {table_name}")
+            for row in self.cursor.fetchall():
+                print(row)
 
     def update_record(self, list_product):
 
@@ -53,26 +61,35 @@ class DatabaseManager:
 
     def return_id_name(self,list_product:list):
 
+        num = 0 
         tables = ["laptop", "cellphone"]
         ids = list_product
+        data =[]
 
         for table in tables:
             placeholders = ", ".join(["%s"] * len(ids))
-            sql = f"SELECT id, name, price FROM `{table}` WHERE id IN ({placeholders})"
+            sql = f"SELECT id, name, price FROM {table} WHERE id IN ({placeholders})"
             self.cursor.execute(sql, ids)
             rows = self.cursor.fetchall()
             for row in rows:
                 print(f"{table}: id = {row[0]}, name = {row[1]}, price = {row[2]}")
+                dict_data = {"table_name":table,"name":row[1],"price":row[2]}
+                data.append(dict_data)
                 num = row[2] + num
-        return num
+        return num ,data
 
-    def add_factors(self , table_name , data_dict):
+    def add_factors(self , table_name , data_list):
         
-        columns = ', '.join(data_dict.keys())
-        placeholders = ', '.join(['%s'] * len(data_dict))
-        sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
-        self.cursor.execute(sql, tuple(data_dict.values()))
-        self.conn.commit()
+        columns = ', '.join(data_list[0].keys())
+
+        for item in data_list:
+            placeholders = ', '.join(['%s'] * len(item))
+            sql = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
+            self.cursor.execute(sql, tuple(item.values()))
+            self.conn.commit()
+
+    
+
         
    
 

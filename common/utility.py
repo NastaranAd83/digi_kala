@@ -14,8 +14,14 @@ class Utility:
 
         if target_data:
             errors.append(f"{key} exists!!")
+            return errors[0] , target_data
 
-        return errors , target_data
+        else:
+            return None , None
+
+
+
+       
 
 
     def unique_request(key:str, data : list )-> None|str:
@@ -33,13 +39,13 @@ class Utility:
                 
 
 
-    def printing(data:list) -> str :
+    def printing(dict_data:dict) -> str :
 
-        headers = list(data[0].keys())
-        print(" , ".join(headers))
-
-        for row in headers:
-            print(" , ".join(str(row.get(h, "")) for h in headers))   
+        headers = list(dict_data.keys())
+        print("   ,   ".join(headers))
+        print("--"*48)
+        print("   ,   ".join(str(dict_data.get(h, "")) for h in headers)) 
+              
                         
             
 

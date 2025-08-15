@@ -1,9 +1,18 @@
 [
     {
         "name": "jo",
-        "family": "ko",
+        "family": "kj",
         "phone": "09129593968",
-        "username": "io",
-        "password": "12345N/a!"
+        "username": "nstrn",
+        "password": "140724N/a!!",
+        "account_balance": 0
+    },
+    {
+        "name": "kok",
+        "family": "jhu",
+        "phone": "09129593965",
+        "username": "yas",
+        "password": "1390N/aQQ!!",
+        "account_balance": 0
     }
 ]

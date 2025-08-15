@@ -58,13 +58,15 @@ while(True):
                     phone = input("Phone :")
 
                     errors = Person.validation(phone,True)
-                    errors.append(Utility.sarching())
+                    error , target = Utility.sarching("phone",phone)
+                    if  target:
+                            errors.append(error)
 
                     if not errors:
                         break
                     else:
                         for error in errors:
-                            print(error)
+                                print(error)
                         sleep(2)
 
                 while(True):
@@ -106,13 +108,13 @@ while(True):
 
 
                 sign_up = SignUp(name=name,family=family,
-                phone=phone,username=username,password=password)
+                phone=phone,username=username,password=password,)
                 
 
                 sign_up.request_for_admin()
 
-
     if choice in ("2","in"):
+
          while(True):
 
             print("1.admin")
@@ -194,6 +196,7 @@ while(True):
 
                 current_user = []
                 products = []
+                factors = []
 
                 while(True):
 
@@ -221,7 +224,7 @@ while(True):
 
                     valid , current_user = Utility.sarching("username",username)
 
-                    if valid["password"] == password:
+                    if current_user["password"] == password:
                         
                         break
 
@@ -248,7 +251,7 @@ while(True):
 
                     if choice3 in ("1","P","p"):
 
-                        print(Utility.printing(current_user), end= "\n")
+                        Utility.printing(current_user)
 
 
                     if choice3 in ("2","s","S"):
@@ -263,22 +266,24 @@ while(True):
                             print ("\n which one do you want ?")
                             print ("please enter the id of the ")
 
-                            while(True):
+                            id_ = input("id : ")
 
-                                id_ = input("id : ")
+                            try :
+                                id_ = int (id_)
 
-                                try :
-                                    id_ = int (id_)
+                            except:
+                                print("invalid value for id ")
+                                
+                                sleep(2)
+                               
+                                    
+                                    
+                            else :
+                                products.append(id_)
 
-                                except:
-                                    print("invalid value for id ")
-                                    sleep(2)
-                                    system("cls")
+                            finally:
+                                system("cls")
 
-
-                                else :
-                                    products.append(id_)
-                                    break
                             
                             done = input("are you done(y-etc)?")
 
@@ -287,12 +292,12 @@ while(True):
 
                     if choice3 in ("3","c","C"):
 
-                        sum_= db.return_id_name(products)
+                        sum_ , factors = db.return_id_name(products)
 
                         done = input("are you done(yes-etc) ?")
 
                         if done in ("y","Y","yes"):
-                            balance = current_user[0].get("account_balance")
+                            balance = current_user.get("account_balance")
                             if balance - sum_ < 0 :
                                 print("unsuccessful shop !!")
                                 print(f"you need to increase your balance , atleast :{abs(balance - sum_)}")
@@ -301,21 +306,25 @@ while(True):
 
                             else :
                                 balance = balance - sum_ 
-                                current_user[0]["account_balance"] = balance
+                                current_user["account_balance"] = balance
                                 db.update_record(products)
                                 db.delete_record()
-                                
+                                for i,factor in enumerate(factors) :
+                                    my_dict = {'username': current_user["username"], **factor}
+                                    factors[i] = my_dict
+
+                                db.add_factors("factors",factors)
+                                factors = []
                                 products = []
-                                print("successful shop ")
-
-                        
-
-
-
+                                print("successful shop")
+                                sleep(2)
 
 
                     if choice3 in ("4","F","f"):
-                        pass
+
+                        print ("products that you have bought\n")
+                        db.read_records("factors",current_user["username"])
+                        sleep(2)
 
 
                     if choice3 in ("5","i","I") :
@@ -332,13 +341,16 @@ while(True):
                                 print("invalid amount")
 
                             else:
-                                balance = current_user[0].get("account_balance")
-                                current_user[0]["account_balance"]= current_user[0].get("account_balance") + amount
-                                print("your current balance : " , current_user[0].get("account_balance"))
+                                balance = current_user.get("account_balance")
+                                current_user["account_balance"]= current_user.get("account_balance") + amount
+                                print("your current balance : " , current_user.get("account_balance"))
+                                
 
                                 sleep(2)
                                 break
-
+                    
+                    if choice3 in ("E","e","6"):
+                        break
 
 
 
