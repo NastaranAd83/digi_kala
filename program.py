@@ -8,6 +8,7 @@ from common.utility import Utility
 from bl.user_pass import UserPass
 from dal.sql import DatabaseManager
 from common.utility import Utility
+from ui.managing_panel import managing
 while(True):
 
     print("MAIN MENU\n")
@@ -20,112 +21,30 @@ while(True):
 
     if choice in ("1","up"):
 
+
+                # region validation
+
                 
-                Utility.get_valid_input("name : ",[
+                name = Utility.get_valid_input("name : ",[
                 lambda v :Person.validation(v)])
                 
 
-                Utility.get_valid_input("family : ",[
+                family = Utility.get_valid_input("family : ",[
                 lambda v :Person.validation(v)])
                 
 
-                Utility.get_valid_input("phone : ",[
+                phone = Utility.get_valid_input("phone : ",[
                 lambda v : Person.validation(v, True),
                 lambda v : Utility.sarching("phone",v)])
 
-                Utility.get_valid_input("username : ",[
+                username = Utility.get_valid_input("username : ",[
                 lambda v : Utility.sarching("username",v)
                 ])
-                Utility.get_valid_input("password : ",[
+                password = Utility.get_valid_input("password : ",[
                 lambda v : UserPass.check_validation(v) ])
-                 
-
-                # while(True):
-
-                #     system("cls")
-                #     errors = []
-                #     name = input("name :")
-
-                #     errors = Person.validation(name)
-
-                #     if not errors:
-                #         break
-                #     else:
-                #         for error in errors:
-                #             print(error)
-                #         sleep(2)
-
-                # while(True):
-
-                #     system("cls")
-                #     errors = []
-                #     family = input("family :")
-
-                #     errors = Person.validation(family)
-
-                #     if not errors:
-                #         break
-                #     else:
-                #         for error in errors:
-                #             print(error)
-                #         sleep(2)
-
-
-                # while(True):
-
-                #     system("cls")
-                #     errors = []
-                #     phone = input("Phone :")
-
-                #     errors = Person.validation(phone,True)
-                #     error , target = Utility.sarching("phone",phone)
-                #     if  target:
-                #             errors.append(error)
-
-                #     if not errors:
-                #         break
-                #     else:
-                #         for error in errors:
-                #                 print(error)
-                #         sleep(2)
-
-                # while(True):
-
-                #     system("cls")
-                #     errors = []
-                #     username = input("username :")
-
-                #     errors , user = Utility.sarching("username",username)
-
-                #     if not errors:
-                #         break
-                #     else:
-                #         for error in errors :
-                #             print(error)
-                #         sleep(2)
-
-                # while(True):
-
-                #     system("cls")
-                #     errors = []
-                #     password = input("password :")
-
-                #     errors = UserPass.check_validation(password)
-
-                #     if not errors:
-                #         break
-                #     else:
-                #         for error in errors:
-                #             print(error)
-                #         sleep(2)
-
-                    
-                # data = {
-                # "user": {"name": name, "family": family, "phone": phone,"username":username,"password":password},
-                #     }
                 
-                # FilaManagering.save_data(data)
-
+                # endregion
+                 
 
                 sign_up = SignUp(name=name,family=family,
                 phone=phone,username=username,password=password,)
@@ -144,72 +63,28 @@ while(True):
             choice1 = input("your choice : ")
 
             if choice1 in ("1,a,A"):
-                while(True):
-                    print("1.list request")
-                    print("2.exit\n")
 
+                # region log in  for admin 
+                username = Utility.get_fixed_input("username: ", "admin", "invalid username for admin")
+                password = Utility.get_fixed_input("password: ", "140724N/a", "invalid password for admin")
+                # endregion
 
-                    choice4 = input("your choice : ")
-                    if choice4 in ("1","L","l"):
+                print("1.list access request ")
+                print("2.list increase account balance")
+                print("3.exit\n")
+            
+                    
+                choice4 = input("your choice : ")
 
-                        while(True):
+                if choice4 in ("1","L","l"):
 
-                            system("cls")
-                            errors = []
-                            username = input("username :")
+                    managing.managing_access_request()
 
-                            if username=="admin":
-                                break
-                            else:
-                                print("invalid username for admin")
-                                sleep(2)
+                if choice4 in ("2","ab","Ab"):
+                       ...
 
-                        while(True):
-
-                            system("cls")
-                            errors = []
-                            password = input("password :")
-
-                            if password == "140724N/a":
-                                break
-
-                            else:
-                                print("invalid password for admin")
-                                sleep(2)
-
-
-                        data_request = FilaManagering.load_data(r"file\request_login.json")
-
-                        data_request = Utility.unique_request("username",data_request)
-
-                        for item in data_request :
-                            
-                            print (f"this user {item['name']}, {item['family']} wants to enter",end='\n')
-
-                            answer = input("do you want to accept this user (y - ect) ?")
-
-                            if answer in ("y", "Y" , "yes"):
-
-
-                                    data_user = FilaManagering.load_data(r"file\user_pass.json")
-                                    if isinstance(data_user,list):
-                                            data_user.append(item)
-                
-                                    else :
-                                            data_user = [data_user]
-                                            data_user.append(item)
-
-                                    FilaManagering.save_data(data_user,r"file\user_pass.json") 
-
-
-
-                            data_request = [record for record in data_request if record["username"] !=  item['username']] 
-                            FilaManagering.save_data(data_request,r"file\request_login.json")  
-
-                        print("Done !")
-
-                    if choice4 in ("2","e","E"):
-                        break
+                if choice4 in ("3","e","E"):
+                    break
 
 
             if choice1 in ("2","u","U"):

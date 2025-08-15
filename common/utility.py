@@ -76,6 +76,17 @@ class Utility:
             for err in errors:
                 print(err)
             sleep(2)
+
+    def get_fixed_input(prompt, correct_value, error_message):
+        
+        while True:
+            
+            system("cls")
+            value = input(prompt)
+            if value == correct_value:
+                return value
+            print(error_message)
+            sleep(2)
             
 
 
