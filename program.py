@@ -8,10 +8,12 @@ from common.utility import Utility
 from bl.user_pass import UserPass
 from dal.sql import DatabaseManager
 from common.utility import Utility
-from ui.managing_panel import managing
+from ui.managing_panel import Managing
+
 while(True):
 
-    print("MAIN MENU\n")
+    main_menu = "MAIN MENU"
+    print(main_menu.center(50,"-"),end="\n")
 
     print("1.sign up")
     print("2.sign in")
@@ -47,14 +49,15 @@ while(True):
                  
 
                 sign_up = SignUp(name=name,family=family,
-                phone=phone,username=username,password=password,)
+                phone=phone,username=username,password=password)
                 
 
-                sign_up.request_for_admin()
+                sign_up.request_for_admin(r"file\request_login.json")
 
     if choice in ("2","in"):
 
          while(True):
+
 
             print("1.admin")
             print("2.user")
@@ -68,7 +71,9 @@ while(True):
                 username = Utility.get_fixed_input("username: ", "admin", "invalid username for admin")
                 password = Utility.get_fixed_input("password: ", "140724N/a", "invalid password for admin")
                 # endregion
-
+                
+                welcome = "Welcome , Admin"
+                print(welcome.center(50,"-"))
                 print("1.list access request ")
                 print("2.list increase account balance")
                 print("3.exit\n")
@@ -76,16 +81,18 @@ while(True):
                     
                 choice4 = input("your choice : ")
 
+                # region admin chioces
                 if choice4 in ("1","L","l"):
 
-                    managing.managing_access_request()
+                    Managing.managing_access_request()
 
                 if choice4 in ("2","ab","Ab"):
-                       ...
+
+                    Managing.managing_credit_increase_request()
 
                 if choice4 in ("3","e","E"):
                     break
-
+                # endregion 
 
             if choice1 in ("2","u","U"):
 
@@ -93,54 +100,28 @@ while(True):
                 products = []
                 factors = []
 
-                while(True):
+                current_user = Managing.login_user()
 
-                    system("cls")
-                    valid = []
-                    username = input("username :")
-
-                    valid , current_user  = Utility.sarching("username",username)
-
-                    if valid:
-                        break
-                    else:
-                        print("we do not have this user\n")
-                        want_to_signup = input("do you want to sign up (y-ect) ?")
-
-                        if want_to_signup in ("y","Y"):
-                            break
-                
+                if not current_user :
+                    break 
 
                 while(True):
 
-                    system("cls")
-                    valid = []
-                    password = input("password :")
-
-                    valid , current_user = Utility.sarching("username",username)
-
-                    if current_user["password"] == password:
-                        
-                        break
-
-                    else:
-                        print("invalid password for this username")
-
-
-                while(True):
                     db = DatabaseManager(host="127.0.0.1",user="root",password="",database="mysql_helper")
 
-                    welcome = " Welcome "
-                    print(welcome.center(50, '-'),end="\n")
+                    #  region user menu
+                    welcome = f" Welcome , {current_user['username']} "
+                    print(welcome.center(50, '-'),"Wallet",current_user['account_balance'],end="\n")
 
-
-
+                    
                     print("1.personal information")
                     print("2.shopping")
                     print("3.shopping cart")
                     print("4.factors")
                     print("5.increase account balance")
                     print("6.exit")
+
+                    # endregion 
 
                     choice3 = input("your choice :")
 
@@ -182,7 +163,6 @@ while(True):
 
                             
                             
-
                     if choice3 in ("3","c","C"):
 
                         sum_ , factors = db.return_id_name(products)
@@ -234,12 +214,13 @@ while(True):
                                 print("invalid amount")
 
                             else:
-                                balance = current_user.get("account_balance")
-                                current_user["account_balance"]= current_user.get("account_balance") + amount
-                                print("your current balance : " , current_user.get("account_balance"))
                                 
-
+                                sign_up = SignUp(current_user['name'],current_user['family'],current_user['phone'],current_user['username'],current_user['password'],current_user['account_balance'])
+                                sign_up.request_for_admin(r"file\request_credit_increase.json",amount)
+                               
                                 sleep(2)
+                                system("cls")
+
                                 break
                     
                     if choice3 in ("E","e","6"):

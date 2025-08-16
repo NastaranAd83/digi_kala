@@ -44,8 +44,7 @@ class DatabaseManager:
             sql = f"UPDATE {table} SET stock = stock - 1 WHERE id IN ({placeholders})"
             self.cursor.execute(sql, ids)
             self.conn.commit()
-            # print("✅ رکورد ویرایش شد.")
-
+           
     def delete_record(self):
         tables = ["laptop", "cellphone"]
        
@@ -53,7 +52,7 @@ class DatabaseManager:
             sql = f"DELETE FROM {table} WHERE stock = 0"
             self.cursor.execute(sql)
             self.conn.commit()
-        # print("✅ رکورد حذف شد.")
+        
 
     def close(self):
         self.cursor.close()
