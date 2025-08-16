@@ -12,8 +12,11 @@ from ui.managing_panel import Managing
 
 while(True):
 
-    main_menu = "MAIN MENU"
-    print(main_menu.center(50,"-"),end="\n")
+
+    system("cls")
+    
+    menu = "MAIN MENU"
+    print(menu.center(50,"-"),end="\n")
 
     print("1.sign up")
     print("2.sign in")
@@ -48,7 +51,7 @@ while(True):
                 # endregion
                  
 
-                sign_up = SignUp(name=name,family=family,
+                person = Person(name=name,family=family,
                 phone=phone,username=username,password=password)
                 
 
@@ -58,6 +61,9 @@ while(True):
 
          while(True):
 
+            system("cls")
+            menu = "SIGN IN MENU"
+            print(menu.center(50,"-"),end="\n")
 
             print("1.admin")
             print("2.user")
@@ -205,6 +211,7 @@ while(True):
                         while(True):
 
                             amount = input("how much do you want to increase your balance ?")
+                            Utility.validate_number(amount,min_value=10.0)
 
                             try:
                                 amount = float(amount)

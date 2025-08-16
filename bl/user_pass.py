@@ -1,15 +1,11 @@
 from bl.person import Person
+from dataclasses import dataclass
 import re
 
+@dataclass
+class UserPass():
 
-class UserPass(Person):
-
-    def __init__(self, name :str , family:str , phone:str , username:str  , password:str ,account_balance:float = 0) -> None:
-        super().__init__(name, family, phone , account_balance)
-        self.username = username
-        self.password = password
-
-
+   
     @staticmethod
     def check_validation (password:str) -> list:
 

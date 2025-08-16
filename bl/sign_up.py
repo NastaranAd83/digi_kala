@@ -1,13 +1,14 @@
 
 from bl.user_pass import UserPass
 from dal.textmanager import FilaManagering
-from bl.person import Person
+from dataclasses import dataclass
 
 
+
+@dataclass
 class SignUp(UserPass):
+    
 
-    def __init__(self, name, family, phone, username, password , account_balance=0):
-            super().__init__(name, family, phone, username, password,account_balance)
     
     def request_for_admin(self,file_path,amount:float|int=0):
         
@@ -25,9 +26,6 @@ class SignUp(UserPass):
         print("your request It has sent to the admin")
 
 
-    def admin_login(username , password):
-
-        pass
     
 
 

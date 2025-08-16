@@ -23,9 +23,6 @@ class Utility:
 
 
 
-       
-
-
     def unique_request(key:str, data : list )-> None|str:
 
         unique_requests = []
@@ -88,6 +85,24 @@ class Utility:
             print(error_message)
             sleep(2)
             
+
+    @staticmethod
+    def validate_number(value: str, allow_float: bool = True,
+                        min_value: float | None = None) -> tuple[list[str], float | None]:
+        errors = []
+        number = None
+
+        try:
+            number = float(value) if allow_float else int(value)
+        except ValueError:
+            errors.append(" Invalid number format.")
+            return errors, None
+
+        if min_value is not None and number < min_value:
+            errors.append(f"Value must be greater than or equal to {min_value}.")
+
+
+        return errors, number
 
 
                         

@@ -1,7 +1,7 @@
 
-from bl.Product.BaseProduct import product
+from bl.Product.BaseProduct import Product
 
-class cellphone(product):
+class cellphone(Product):
 
     def __init__(self,brand , model ,name , price, os  , color):
         super().__init__(brand , model ,name , price,os )
