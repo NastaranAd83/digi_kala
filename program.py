@@ -1,15 +1,12 @@
 
 from os import system
 from time import sleep
-from bl.sign_up import SignUp
 from bl.person import Person
-from dal.textmanager import FilaManagering
-from common.utility import Utility
-from bl.user_pass import UserPass
+from common.utility.utility_ui import Utility
 from dal.sql import DatabaseManager
-from common.utility import Utility
+from common.utility.utility_ui import Utility
 from ui.managing_panel import Managing
-
+from common.utility.admin_utility import Admin_Utility
 while(True):
 
 
@@ -46,16 +43,17 @@ while(True):
                 lambda v : Utility.sarching("username",v)
                 ])
                 password = Utility.get_valid_input("password : ",[
-                lambda v : UserPass.check_validation(v) ])
+                lambda v : Person.check_validation(v) ])
                 
                 # endregion
                  
 
-                person = Person(name=name,family=family,
+                admin = Admin_Utility(name=name,family=family,
                 phone=phone,username=username,password=password)
                 
 
-                sign_up.request_for_admin(r"file\request_login.json")
+                admin.request_for_admin(r"file\request_login.json")
+                sleep(2)
 
     if choice in ("2","in"):
 
@@ -222,8 +220,8 @@ while(True):
 
                             else:
                                 
-                                sign_up = SignUp(current_user['name'],current_user['family'],current_user['phone'],current_user['username'],current_user['password'],current_user['account_balance'])
-                                sign_up.request_for_admin(r"file\request_credit_increase.json",amount)
+                                sign_up = Person(current_user['name'],current_user['family'],current_user['phone'],current_user['username'],current_user['password'],current_user['account_balance'])
+                                Admin_Utility.request_for_admin(r"file\request_credit_increase.json",amount)
                                
                                 sleep(2)
                                 system("cls")

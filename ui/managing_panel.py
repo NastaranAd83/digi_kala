@@ -2,14 +2,15 @@
 from os import system
 from time import sleep
 from dal.textmanager import FilaManagering
-from common.utility import Utility
+from common.utility.utility_ui import Utility
+from common.utility.admin_utility import Admin_Utility
 class Managing:
 
     @staticmethod
     def managing_access_request() :
 
         data_request = FilaManagering.load_data(r"file\request_login.json")  or []
-        data_request = Utility.unique_request("username",data_request)
+        data_request = Admin_Utility.unique_request("username",data_request)
 
         data_user = FilaManagering.load_data(r"file\user_pass.json") or []
         if not isinstance(data_user, list):

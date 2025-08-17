@@ -1,52 +1,39 @@
  
 from os import system
 from time import sleep
+from typing import Any, Callable
 from dal.textmanager import FilaManagering
 
 
 class Utility:
 
     @staticmethod
-    def sarching(key:str, value:str)-> None|str:
+    def sarching(key:str, value:str)->  tuple[list[str] , dict | None]:
 
-        errors = []
+        
 
         data = FilaManagering.load_data(r"file\user_pass.json")
         target_data = next(( item for item in data if item[key] == value), None)
 
         if target_data:
-            errors.append(f"{key} exists!!")
-            return errors[0] , target_data
+
+           return [f"{key} already exists!"], target_data
 
         else:
-            return None , None
+            return [] , None
 
 
 
-    def unique_request(key:str, data : list )-> None|str:
-
-        unique_requests = []
-        seen_data = set()
-        for record in data :
-            if record[key] not in seen_data:
-                seen_data.add(record[key])
-                unique_requests.append(record)
-        
-        data_request = unique_requests
-
-        return data_request
-                
-
-
-    def printing(dict_data:dict) -> str :
+    @staticmethod
+    def printing(dict_data:dict) -> None :
 
         headers = list(dict_data.keys())
         print("   ,   ".join(headers))
         print("--"*48)
         print("   ,   ".join(str(dict_data.get(h, "")) for h in headers)) 
 
-
-    def get_valid_input(prompt, validators):
+    @staticmethod
+    def get_valid_input(prompt : str , validators :  list[Callable[[str], list[str] | tuple[str | None, Any] | str | None]]) -> str:
         while True:
 
             system("cls")
@@ -74,7 +61,9 @@ class Utility:
                 print(err)
             sleep(2)
 
-    def get_fixed_input(prompt, correct_value, error_message):
+    
+    @staticmethod
+    def get_fixed_input(prompt : str , correct_value : str, error_message : str) -> str :
         
         while True:
             
